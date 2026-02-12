@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti ❤️</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family: 'Segoe UI', sans-serif;
+    text-align:center;
+    color:white;
+    background: linear-gradient(-45deg,#ff4e8a,#ff6ec7,#ff9a9e,#fad0c4);
+    background-size:400% 400%;
+    animation: fondo 10s ease infinite;
+}
+
+@keyframes fondo{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+h1{
+    margin-top:60px;
+    font-size:3em;
+    animation: aparecer 3s ease-in-out;
+}
+
+@keyframes aparecer{
+    from{opacity:0; transform:translateY(-20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    margin:10px;
+    transition:.3s;
+}
+
+.si{
+    background:white;
+    color:#ff4e8a;
+}
+
+.no{
+    background:#ff1e56;
+    color:white;
+    position:absolute;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+#carta{
+    display:none;
+    margin-top:20px;
+    font-size:20px;
+    animation: aparecer 2s ease-in-out;
+}
+
+#contador{
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* Corazones flotando */
+.heart{
+    position:fixed;
+    width:20px;
+    height:20px;
+    background:red;
+    transform:rotate(45deg);
+    animation:flotar 6s linear infinite;
+}
+
+.heart:before,
+.heart:after{
+    content:'';
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+}
+
+.heart:before{top:-10px;left:0;}
+.heart:after{left:-10px;top:0;}
+
+@keyframes flotar{
+    0%{bottom:-10px;opacity:1;}
+    100%{bottom:100%;opacity:0;transform:translateX(100px) rotate(45deg);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>💖 Feliz 14 de Febrero 💖</h1>
+
+<div id="contador"></div>
+
+<br>
+
+<input type="text" id="nombre" placeholder="Escribe tu nombre ❤️">
+<br>
+<button onclick="mostrarCarta()">Mostrar Carta 💌</button>
+
+<div id="carta"></div>
+
+<h2>¿Quieres ser mi San Valentín? 💘</h2>
+<button class="si" onclick="aceptar()">Sí 💖</button>
+<button class="no" id="noBtn">No 😈</button>
+
+<audio id="musica" autoplay loop>
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// CUENTA REGRESIVA
+const fecha = new Date("Feb 14, 2026 00:00:00").getTime();
+setInterval(function(){
+    const ahora = new Date().getTime();
+    const diferencia = fecha - ahora;
+    const dias = Math.floor(diferencia/(1000*60*60*24));
+    document.getElementById("contador").innerHTML =
+    "⏳ Faltan " + dias + " días para el 14 de Febrero ❤️";
+},1000);
+
+// MOSTRAR CARTA
+function mostrarCarta(){
+    let nombre = document.getElementById("nombre").value;
+    if(nombre === "") nombre = "Mi Amor";
+    document.getElementById("carta").style.display="block";
+    document.getElementById("carta").innerHTML =
+    "💌 Querida "+nombre+", eres la razón de mis sonrisas y la persona más especial en mi vida, en este poquito tiempo que tenemos conociendonos me he dado cuenta que realmente te amo, eres una niña que vale completamente la pena y cada que pasa el tiempo, me enamoro mas de ti, te amoo mi niña❤️✨";
+}
+
+// BOTÓN QUE HUYE
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", function(){
+    noBtn.style.top = Math.random()*80 + "%";
+    noBtn.style.left = Math.random()*80 + "%";
+});
+
+// ACEPTAR
+function aceptar(){
+    alert("🎉 Sabía que dirías que sí 💖");
+    explosionCorazones();
+}
+
+// CORAZONES FLOTANDO
+function crearCorazon(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},6000);
+}
+setInterval(crearCorazon,300);
+
+// EXPLOSIÓN FINAL
+function explosionCorazones(){
+    for(let i=0;i<50;i++){
+        crearCorazon();
+    }
+}
+</script>
+
+</body>
+</html>
